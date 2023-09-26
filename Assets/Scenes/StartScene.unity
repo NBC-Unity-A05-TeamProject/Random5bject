@@ -350,7 +350,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 282182960}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: StartSceneButton
+        m_MethodName: MainSceneButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
