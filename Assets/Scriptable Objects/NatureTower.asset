@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: NatureTower
   towerAtkDamage: 5
-  towerAtkSpeed: 1
+  towerAtkSpeed: 0.2
   upgradeAtkDamage: 1
   upgradeAtkSpeed: 1
+  maxDots: 6
   sprite: {fileID: 21300000, guid: 2dffd116f9b176d4f97d6a96ef69fba3, type: 3}
+  dotColor: {r: 0.06323426, g: 0.46226418, b: 0.0987914, a: 1}
+  dotCount: 6
+  dotSpacing: 2.6
