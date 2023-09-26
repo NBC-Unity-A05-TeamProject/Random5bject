@@ -17,9 +17,6 @@ MonoBehaviour:
   towerAtkSpeed: 2
   upgradeAtkDamage: 0.5
   upgradeAtkSpeed: 1
-  towerLevel: 0
+  towerLevel: 4
   sprite: {fileID: 21300000, guid: 5d323ef68d8d9ca47b447ceb0d249fd9, type: 3}
-  dotColor: {r: 0.6509434, g: 0.6065609, b: 0, a: 1}
-  dotCount: 1
-  dotSpacing: 2.6
-  dotSprite: {fileID: 21300000, guid: 9cdd601edd584fe4b84e822501388e59, type: 3}
+  dotColor: {r: 0.5, g: 0.4659091, b: 0, a: 1}

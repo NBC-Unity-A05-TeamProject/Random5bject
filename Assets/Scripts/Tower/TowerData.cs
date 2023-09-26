@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable/TowerData", fileName = "Tower Data")]
 public class TowerData : ScriptableObject
 {
-    [Header("DIce")]
+    [Header("Dice")]
     public string towerName = "Tower";
     public float towerAtkDamage = 5f;
     public float towerAtkSpeed = 1f;
@@ -11,4 +11,7 @@ public class TowerData : ScriptableObject
     public float upgradeAtkSpeed = 1f;
     public int towerLevel = 1;
     public Sprite sprite;
+
+    [Header("Dot")]
+    public Color dotColor = Color.white;
 }
