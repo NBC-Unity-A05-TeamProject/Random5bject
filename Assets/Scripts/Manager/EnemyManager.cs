@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static EnemyManager instance;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
