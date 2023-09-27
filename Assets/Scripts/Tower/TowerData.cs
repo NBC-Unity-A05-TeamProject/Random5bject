@@ -9,7 +9,6 @@ public class TowerData : ScriptableObject
     public float towerAtkSpeed = 1f;
     public float upgradeAtkDamage = 1f;
     public float upgradeAtkSpeed = 1f;
-    public int towerLevel = 1;
     public Sprite sprite;
 
     [Header("Dot")]

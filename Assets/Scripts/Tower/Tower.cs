@@ -1,42 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Tower : MonoBehaviour
 {
     public TowerData[] towerData;
-    private TowerData selectedTowerData;
-
     public GameObject dotPrefab;
+
+    public TowerData selectedTowerData;
+
+    private float currentAtkDamage;
+    private float currentAtkSpeed;
+    private SpriteRenderer spriteRenderer;
+
+    public int level = 1;
     private List<Dot> dots = new List<Dot>();
 
-    public void Init()
+    private void Start()
     {
-        if (towerData != null && towerData.Length > 0)
+        int randomTowerIndex = Random.Range(0, towerData.Length);
+        selectedTowerData = towerData[randomTowerIndex];
+
+        string towerName = selectedTowerData.towerName;
+        gameObject.name = towerName;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer != null && selectedTowerData.sprite != null)
         {
-            int randomTowerIndex = Random.Range(0, towerData.Length);
-            selectedTowerData = towerData[randomTowerIndex];
-
-            string towerName = selectedTowerData.towerName;
-            gameObject.name = towerName;
-
-            Image towerImage = GetComponent<Image>();
-
-            if (towerImage != null && selectedTowerData.sprite)
-            {
-                towerImage.sprite = selectedTowerData.sprite;
-            }
-
-            float attackDamage = selectedTowerData.towerAtkDamage;
-            float attackSpeed = selectedTowerData.towerAtkSpeed;
-
-            int towerLevel = selectedTowerData.towerLevel;
-            ActivateDots(towerLevel);
+            spriteRenderer.sprite = selectedTowerData.sprite;
         }
-        else
+
+        currentAtkDamage = selectedTowerData.towerAtkDamage;
+        currentAtkSpeed = selectedTowerData.towerAtkSpeed;
+
+        GenerateDots();
+        UpdateDots();
+    }
+
+    void GenerateDots()
+    {
+        Vector2[] positions = CalculateDotPositions(level);
+
+        for (int i = 0; i < positions.Length; i++)
         {
-            Debug.Log("데이터 없음");
+            GameObject dotObject = Instantiate(dotPrefab);
+            dotObject.transform.SetParent(transform); 
+
+            Dot dot = dotObject.GetComponent<Dot>();
+            if (dot != null)
+            {
+                dot.SetColor(selectedTowerData.dotColor);
+                dot.SetLocalPosition(positions[i]);
+                dots.Add(dot);
+            }
+        }
+    }
+
+    void UpdateDots()
+    {
+        for (int i = 0; i < dots.Count; i++)
+        {
+            dots[i].SetActive(i < level);
+        }
+    }
+
+    public void UpgradeTower()
+    {
+        if(level < 6)
+        {
+            level++;
+            currentAtkDamage += selectedTowerData.upgradeAtkDamage;
+            currentAtkSpeed += selectedTowerData.upgradeAtkSpeed;
+
+            UpdateDots();
         }
     }
 
@@ -50,49 +87,24 @@ public class Tower : MonoBehaviour
                 positions = new Vector2[] { Vector2.zero };
                 break;
             case 2:
-                positions = new Vector2[] { new Vector2(-30f, -30f), new Vector2(30f, 30f) };
+                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, 0.3f) };
                 break;
             case 3:
-                positions = new Vector2[] { new Vector2(-30f, -30f), Vector2.zero, new Vector2(30f, 30f) };
+                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), Vector2.zero, new Vector2(0.3f, 0.3f) };
                 break;
             case 4:
-                positions = new Vector2[] { new Vector2(-30f, -30f), new Vector2(30f, -30f), new Vector2(-30f, 30f), new Vector2(30f, 30f) };
+                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) };
                 break;
             case 5:
-                positions = new Vector2[] { new Vector2(-30f, -30f), new Vector2(30f, -30f), Vector2.zero, new Vector2(-30f, 30f), new Vector2(30f, 30f) };
+                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), Vector2.zero, new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) };
                 break;
             case 6:
-                positions = new Vector2[] { new Vector2(-30f, -30f), new Vector2(-30f, 0f), new Vector2(-30f, 30f), new Vector2(30f, -30f), new Vector2(30f, 0f), new Vector2(30f, 30f) };
+                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(-0.3f, 0f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, -0.3f), new Vector2(0.3f, 0f), new Vector2(0.3f, 0.3f) };
                 break;
             default:
                 break;
         }
 
         return positions;
-    }
-    private void ActivateDots(int towerLevel)
-    {
-        foreach (var dot in dots)
-        {
-            dot.Deactivate();
-            Destroy(dot.gameObject);
-        }
-        dots.Clear();
-
-        Vector2[] dotPositions = CalculateDotPositions(towerLevel);
-
-        for (int i = 0; i < dotPositions.Length; i++)
-        {
-            Vector2 dotPosition = dotPositions[i];
-
-            GameObject dotObj = Instantiate(dotPrefab, transform);
-            dotObj.transform.localPosition = new Vector3(dotPosition.x, dotPosition.y, 0f);
-
-            Dot dot = dotObj.GetComponent<Dot>();
-            dot.SetColor(selectedTowerData.dotColor);
-            dot.Activate();
-
-            dots.Add(dot);
-        }
     }
 }
