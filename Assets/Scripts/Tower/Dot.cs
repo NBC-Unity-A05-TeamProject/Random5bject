@@ -1,37 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Dot : MonoBehaviour
 {
-    public Image dotImage;
-    private Color dotColor; 
+    private SpriteRenderer spriteRenderer; // 스프라이트 렌더러
 
-    private bool isActive = false;
-
-    public void SetPosition(Vector2 position)
+    void Awake()
     {
-        transform.localPosition = new Vector3(position.x, position.y, 0f);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetColor(Color color)
     {
-        dotColor = color;
-        GetComponent<Image>().color = dotColor;
+        // 색상 설정
+        spriteRenderer.color = color;
     }
-    public void Activate()
+
+    public void SetLocalPosition(Vector3 localPosition)
     {
-        isActive = true;
-        gameObject.SetActive(true);
+        // 로컬 위치 설정
+        transform.localPosition = localPosition;
     }
-    public void Deactivate()
+
+    public void SetActive(bool active)
     {
-        isActive = false;
-        gameObject.SetActive(false);
-    }
-    public bool IsActive()
-    {
-        return isActive;
+        // 활성/비활성 상태 설정
+        gameObject.SetActive(active);
     }
 }
