@@ -5,8 +5,10 @@ using static ObjectPoolingManager;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float sqawnTime;
     ObjectPoolingManager manager;
+    [SerializeField]
+    public Transform[] wayPos;
+    private float sqawnTime;
 
     private void Start()
     {
@@ -27,8 +29,8 @@ public class EnemySpawner : MonoBehaviour
     {
         thisEnemy.SetActive(true);
         Enemy param = thisEnemy.GetComponent<Enemy>();
-        param.SetPosition();
-        param.Sqawned();
+        param.SetPosition(wayPos);
+        //param.Sqawned();
     }
     private float NextSpawnTime()
     {
