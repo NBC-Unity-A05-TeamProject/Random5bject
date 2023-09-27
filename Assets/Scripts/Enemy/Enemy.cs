@@ -9,12 +9,12 @@ public class Enemy : MonoBehaviour
     EnemySpawner enemySpawner;
     private Rigidbody2D rigidbody;
     private Movement movement;
+    private Transform[] wayPoints;
     private int hp;
     private int damage;
-    public bool isSqawn = false;
-    private Transform[] wayPoints;
     private int currentIndex = 0;
-    int wayPointNum = 0;
+    private int wayPointNum = 0;
+    public bool isSqawn = false;
 
     void Awake()
     {

@@ -5,10 +5,10 @@ using static ObjectPoolingManager;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float sqawnTime;
     ObjectPoolingManager manager;
     [SerializeField]
     public Transform[] wayPos;
+    private float sqawnTime;
 
     private void Start()
     {
