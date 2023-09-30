@@ -4,15 +4,15 @@ using UnityEngine;
 public class TowerSpawnManager : MonoBehaviour
 {
     public static TowerSpawnManager instance;
-    public GameObject towerPrefab; // 타워 프리팹에 대한 참조
+    public GameObject towerPrefab; 
     public GameObject spawnPointPrefab;
     private List<Transform> spawnPoints = new List<Transform>();
-    public float startX = 0f; // 시작 x 좌표
-    public float startY = 0f; // 시작 y 좌표
+    public float startX = 0f; 
+    public float startY = 0f; 
 
     void Start()
     {
-        GenerateSpawnPoints(5, 3); // 가로 3, 세로 5의 격자 패턴으로 스폰 포인트를 생성합니다.
+        GenerateSpawnPoints(5, 3); 
     }
     private void Awake()
     {

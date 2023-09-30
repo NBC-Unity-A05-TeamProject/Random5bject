@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class SimpleDraggable: MonoBehaviour
+public class SimpleDraggable : MonoBehaviour
 {
     private Vector3 offset;
     private bool isDragging;
@@ -11,19 +12,25 @@ public class SimpleDraggable: MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
+        StartCoroutine(MoveTower());
     }
 
-    void Update()
+    IEnumerator MoveTower()
     {
-        if (isDragging)
+        while (true)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
-        }
-        else if (mergeTarget != null)
-        {
-            MergeTowers();
-            mergeTarget = null;
+            if (isDragging)
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
+            }
+            else if (mergeTarget != null)
+            {
+                MergeTowers();
+                mergeTarget = null;
+            }
+
+            yield return null;
         }
     }
 
@@ -38,9 +45,9 @@ public class SimpleDraggable: MonoBehaviour
     void OnMouseUp()
     {
         isDragging = false;
-        GetComponent<Collider2D>().isTrigger = false; 
-        GetComponent<Tower>().UpgradeTower();
-        if (mergeTarget == null) 
+        GetComponent<Collider2D>().isTrigger = false;
+
+        if (mergeTarget == null)
         {
             transform.position = originalPosition;
         }
@@ -49,10 +56,9 @@ public class SimpleDraggable: MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Tower otherTower = collision.gameObject.GetComponent<Tower>();
+
         if (otherTower != null && CanMergeWith(otherTower))
-        {
             mergeTarget = otherTower;
-        }
     }
 
     private bool CanMergeWith(Tower other)
@@ -64,5 +70,10 @@ public class SimpleDraggable: MonoBehaviour
 
     private void MergeTowers()
     {
+        if (mergeTarget != null)
+        {
+            TowerManager.instance.MergeTowers(GetComponent<Tower>(), mergeTarget);
+            mergeTarget = null;
+        }
     }
 }
