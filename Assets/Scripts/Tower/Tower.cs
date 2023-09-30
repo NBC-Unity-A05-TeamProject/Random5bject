@@ -72,7 +72,6 @@ public class Tower : MonoBehaviour
             level++;
             currentAtkDamage += selectedTowerData.upgradeAtkDamage;
             currentAtkSpeed += selectedTowerData.upgradeAtkSpeed;
-
             UpdateDots();
         }
     }
