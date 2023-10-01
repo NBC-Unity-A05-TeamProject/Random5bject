@@ -1,65 +1,81 @@
-using System.Security.Cryptography;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Draggable : MonoBehaviour
 {
+    private Vector3 offset;
+    private bool isDragging;
     private Vector3 originalPosition;
-    private Tower tower;
-    public GameObject towerPrefab;
+
+    private Tower mergeTarget = null;
+
     void Start()
     {
-        tower = GetComponent<Tower>();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        Debug.Log("Å¬¸¯");
         originalPosition = transform.position;
+        StartCoroutine(MoveTower());
     }
 
-    public void OnDrag(PointerEventData eventData)
+    IEnumerator MoveTower()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(eventData.position);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Tower otherTower = CanMergeWithOtherTower();
-
-        if (otherTower != null)
-            MergeWithOthertower(otherTower);
-        else
-            transform.position = originalPosition;
-    }
-
-    Tower CanMergeWithOtherTower()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
-
-        foreach (var collider in colliders)
+        while (true)
         {
-            Tower otherTower = collider.GetComponent<Tower>();
+            if (isDragging)
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
+            }
 
-            if (otherTower != null && otherTower.towerData == tower.towerData && otherTower.level == tower.level)
-                return otherTower;
+            yield return null;
         }
-
-        return null;
     }
 
-    void MergeWithOthertower(Tower othertower)
+
+    void OnMouseDown()
     {
-        GameObject newtowerObject = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-        Tower newtowerSpawner = newtowerObject.GetComponent<Tower>();
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        offset = transform.position - new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        isDragging = true;
+        GetComponent<Collider2D>().isTrigger = true;
+    }
 
-        if (newtowerSpawner != null)
+    void OnMouseUp()
+    {
+        isDragging = false;
+        GetComponent<Collider2D>().isTrigger = false;
+
+        if (mergeTarget != null)
         {
-            Destroy(othertower.gameObject);
-            Destroy(gameObject);
+            MergeTowers();
+            mergeTarget = null;
+        }
+        else
+        {
+            transform.position = originalPosition;
+        }
+    }
 
-            newtowerSpawner.level = tower.level + 1;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Tower otherTower = collision.gameObject.GetComponent<Tower>();
+
+        if (otherTower != null && CanMergeWith(otherTower))
+            mergeTarget = otherTower;
+    }
+
+    private bool CanMergeWith(Tower other)
+    {
+        Tower thisTower = GetComponent<Tower>();
+
+        return thisTower.selectedTowerData.towerName == other.selectedTowerData.towerName && thisTower.level == other.level;
+    }
+
+    private void MergeTowers()
+    {
+        if (mergeTarget != null)
+        {
+            TowerManager.instance.MergeTowers(GetComponent<Tower>(), mergeTarget);
+            mergeTarget = null;
         }
     }
 }
