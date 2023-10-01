@@ -19,7 +19,7 @@ public class TowerManager : MonoBehaviour
         if (tower1.transform.parent == null)
             return;
 
-        Transform parentTransform = tower1.transform.parent;
+        Transform parentTransform = tower2.transform.parent;
         Vector3 newTowerPosition = parentTransform.position;
 
         Destroy(tower1.gameObject);

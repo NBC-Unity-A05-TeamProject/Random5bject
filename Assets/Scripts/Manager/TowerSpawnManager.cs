@@ -12,7 +12,7 @@ public class TowerSpawnManager : MonoBehaviour
 
     void Start()
     {
-        GenerateSpawnPoints(5, 3); 
+        //GenerateSpawnPoints(5, 3); 
     }
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class TowerSpawnManager : MonoBehaviour
         Instantiate(towerPrefab, randomEmptySpawnPoint.position, Quaternion.identity, randomEmptySpawnPoint);
     }
 
-    private void GenerateSpawnPoints(int width, int height)
+    public void GenerateSpawnPoints(int width, int height)
     {
         for (int x = 0; x < width; x++)
         {

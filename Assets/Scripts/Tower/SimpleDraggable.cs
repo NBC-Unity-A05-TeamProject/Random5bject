@@ -24,15 +24,11 @@ public class SimpleDraggable : MonoBehaviour
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
             }
-            else if (mergeTarget != null)
-            {
-                MergeTowers();
-                mergeTarget = null;
-            }
 
             yield return null;
         }
     }
+
 
     void OnMouseDown()
     {
@@ -47,11 +43,17 @@ public class SimpleDraggable : MonoBehaviour
         isDragging = false;
         GetComponent<Collider2D>().isTrigger = false;
 
-        if (mergeTarget == null)
+        if (mergeTarget != null)
+        {
+            MergeTowers();
+            mergeTarget = null;
+        }
+        else
         {
             transform.position = originalPosition;
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
