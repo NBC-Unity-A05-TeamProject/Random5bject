@@ -450,6 +450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData:
   - {fileID: 11400000, guid: 732e7a6eb0178b7448855361854605e1, type: 2}
+  - {fileID: 11400000, guid: 9d670dc5cf278594c93dc30bfde48fa5, type: 2}
+  - {fileID: 11400000, guid: d8aefa7b3cc192545b8e555ce6321be1, type: 2}
   enemyHpText: {fileID: 7778806642282814018}
 --- !u!114 &1458070336557742729
 MonoBehaviour:
