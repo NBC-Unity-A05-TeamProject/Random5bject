@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private EnemyData[] enemyData;
     private EnemyData selectedEnemyData;
 
+    private SpriteRenderer spriteRenderer;
+
     ObjectPoolingManager manager = ObjectPoolingManager.instance;
     EnemySpawner enemySpawner;
     private Rigidbody2D rigidbody;
@@ -30,7 +32,7 @@ public class Enemy : MonoBehaviour
     }
     private void Start()
     {
-
+        
     }
     public void SetPosition(Transform[] wayPoints)
     {
@@ -67,6 +69,39 @@ public class Enemy : MonoBehaviour
             currentIndex++;
             Vector3 direction = (wayPoints[currentIndex].position - transform.position).normalized;
             movement.MoveTo(direction);
+        }
+    }
+    public void SetData(GameObject thisEnemy)
+    {
+        int randomEnemyIndex = 0;
+        int rand = Random.Range(0, 101);
+        if(rand <= 88)
+        {
+            randomEnemyIndex = 0;
+        }
+        else if(rand < 98 && rand > 88)
+        {
+            randomEnemyIndex = 1;
+        }
+        else
+        {
+            randomEnemyIndex = 2;
+        }
+        selectedEnemyData = enemyData[randomEnemyIndex];
+
+        string enemyName = selectedEnemyData.enemyName;
+        gameObject.name = enemyName;
+
+        float enemySpeed = selectedEnemyData.enemySpeed;
+        movement.moveSpeed = enemySpeed;
+
+        hp = selectedEnemyData.enemyMaxHp;
+        enemyHpText.text = hp.ToString();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null && selectedEnemyData.sprite != null)
+        {
+            spriteRenderer.sprite = selectedEnemyData.sprite;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

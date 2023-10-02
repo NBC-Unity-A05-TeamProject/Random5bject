@@ -29,10 +29,10 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Spawn(GameObject thisEnemy)
     {
-        thisEnemy.SetActive(true);
         Enemy param = thisEnemy.GetComponent<Enemy>();
+        param.SetData(thisEnemy);
+        thisEnemy.SetActive(true);
         param.SetPosition(wayPos);
-        //param.Sqawned();
     }
     private float NextSpawnTime()
     {
