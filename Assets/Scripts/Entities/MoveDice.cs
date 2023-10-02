@@ -10,12 +10,17 @@ public class MoveDice : MonoBehaviour
     private float minRotation = 0f;
     private float maxRotation = 180f;
 
+    private Animator animator;
+    private bool isSpawn = false;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         float rotationAmount = Random.Range(minRotation, maxRotation);
         transform.Rotate(0f, 0f, rotationAmount);
+
+        animator = GetComponent<Animator>();
     }
 
     void OnMouseDown()
@@ -31,5 +36,9 @@ public class MoveDice : MonoBehaviour
         float randomForce = Random.Range(minForce, maxForce);
 
         rb.AddForce(randomDirection * randomForce, ForceMode2D.Impulse);
+    }
+    public void TransitionToNextAnimation()
+    {
+        animator.SetBool("isSpawn", true);
     }
 }
