@@ -21,7 +21,6 @@ public class ControlSky : MonoBehaviour
     void Start()
     {
         skyboxMaterial = RenderSettings.skybox;
-        // 시작 시 Exposure 설정
         SetExposure(exposure1);
         customTime = 0f;
     }

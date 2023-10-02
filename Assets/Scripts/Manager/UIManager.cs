@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
-            Time.timeScale = 0f; 
+        Time.timeScale = 0f;
     }
     public void Resumed()
     {
@@ -33,11 +33,11 @@ public class UIManager : MonoBehaviour
         isSpeedUp = !isSpeedUp;
         if (isSpeedUp)
         {
-            Time.timeScale = 2f; 
+            Time.timeScale = 2f;
         }
         else
         {
-            Time.timeScale = 1f; 
+            Time.timeScale = 1f;
         }
     }
 }

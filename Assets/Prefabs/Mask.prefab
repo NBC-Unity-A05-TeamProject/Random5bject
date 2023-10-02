@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 412473305809818175}
   - component: {fileID: 6617758097789351720}
   - component: {fileID: 4328019924281172817}
+  - component: {fileID: 6230433836753471232}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -213,7 +214,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 412473305809818175}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6230433836753471232}
+        m_TargetAssemblyTypeName: UpgradeAtk, Assembly-CSharp
+        m_MethodName: OnUpgradeAtkButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6230433836753471232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168036405681899125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2a5cde3faaefe4e9801dfb045667e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTxt: {fileID: 8868193208546843916}
+  priceTxt: {fileID: 9114613930412691757}
+  upgradeButton: {fileID: 4328019924281172817}
 --- !u!1 &5655409477793325887
 GameObject:
   m_ObjectHideFlags: 0

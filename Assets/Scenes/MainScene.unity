@@ -446,7 +446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114613930412691757, guid: 2bf9201bdba4b5b4991dc8ac97447968, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278496511
+      value: 4278237695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -683,7 +683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114613930412691757, guid: 2bf9201bdba4b5b4991dc8ac97447968, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278496511
+      value: 4278237695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1246,6 +1246,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &380483045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380483046}
+  - component: {fileID: 380483047}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &380483046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380483045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1496876517}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &380483047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380483045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1862d3465ea3d87449db977886986191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 0
+  score: 0
+  goldTxt: {fileID: 2090580020}
 --- !u!1 &413890155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,7 +2417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114613930412691757, guid: 2bf9201bdba4b5b4991dc8ac97447968, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278496511
+      value: 4278237695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2950,7 +2997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114613930412691757, guid: 2bf9201bdba4b5b4991dc8ac97447968, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278496511
+      value: 4278237695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4207,7 +4254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -5}
+  m_AnchoredPosition: {x: -30, y: -5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1161031777
@@ -4230,7 +4277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gold : \n"
+  m_text: "Gold: \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd9fa6df41b49fa41828ae75cab69581, type: 2}
   m_sharedMaterial: {fileID: 3643701488837406914, guid: dd9fa6df41b49fa41828ae75cab69581, type: 2}
@@ -5506,6 +5553,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 685461534}
+  - {fileID: 380483046}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6370,7 +6418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -5}
+  m_AnchoredPosition: {x: 30, y: -5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090580020
@@ -6393,7 +6441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd9fa6df41b49fa41828ae75cab69581, type: 2}
   m_sharedMaterial: {fileID: 3643701488837406914, guid: dd9fa6df41b49fa41828ae75cab69581, type: 2}
@@ -6576,7 +6624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114613930412691757, guid: 2bf9201bdba4b5b4991dc8ac97447968, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278496511
+      value: 4278237695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
