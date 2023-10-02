@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ObjectPoolingManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class ObjectPoolingManager : MonoBehaviour
         public int capacity;
     }
     public static ObjectPoolingManager instance;
+    Enemy enemy;
     public List<Pool> pools;
     public Dictionary<string, List<GameObject>> poolDictionary;
 
@@ -33,7 +35,6 @@ public class ObjectPoolingManager : MonoBehaviour
     private void FillPool(GameObject gameObject, int capacity)
     {
         List<GameObject> pool = poolDictionary[gameObject.name];
-
         for (int i = 0; i < capacity; i++)
         {
             GameObject newObject = Instantiate(gameObject);

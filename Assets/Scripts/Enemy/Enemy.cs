@@ -1,20 +1,26 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private EnemyData[] enemyData;
+    private EnemyData selectedEnemyData;
+
     ObjectPoolingManager manager = ObjectPoolingManager.instance;
     EnemySpawner enemySpawner;
     private Rigidbody2D rigidbody;
     private Movement movement;
     private Transform[] wayPoints;
+    [SerializeField]
+    private TextMeshProUGUI enemyHpText;
     private int hp;
     private int damage;
     private int currentIndex = 0;
     private int wayPointNum = 0;
-    public bool isSqawn = false;
 
     void Awake()
     {
@@ -22,10 +28,15 @@ public class Enemy : MonoBehaviour
         enemySpawner = GetComponent<EnemySpawner>();
         movement = GetComponent<Movement>();
     }
+    private void Start()
+    {
+
+    }
     public void SetPosition(Transform[] wayPoints)
     {
         if (wayPoints == null || wayPoints.Length == 0)
             return;
+
         wayPointNum = wayPoints.Length;
         this.wayPoints = new Transform[wayPointNum];
         this.wayPoints = wayPoints;
@@ -65,7 +76,6 @@ public class Enemy : MonoBehaviour
         {
             wayPointNum = 0;
             this.gameObject.SetActive(false);
-            isSqawn = false;
         }
     }
 }

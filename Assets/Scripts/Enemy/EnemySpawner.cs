@@ -6,6 +6,8 @@ using static ObjectPoolingManager;
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPoolingManager manager;
+    private EnemyData[] enemyData;
+    private EnemyData selectedEnemyData;
     [SerializeField]
     public Transform[] wayPos;
     private float sqawnTime;
@@ -20,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         sqawnTime -= Time.deltaTime;
         if (sqawnTime < 0)
         {
-            GameObject thisEnemy = manager.GetFromPool("Enemy");
+            GameObject thisEnemy = manager.GetFromPool("Enemy_normal");
             Spawn(thisEnemy);
             sqawnTime = NextSpawnTime();
         }
