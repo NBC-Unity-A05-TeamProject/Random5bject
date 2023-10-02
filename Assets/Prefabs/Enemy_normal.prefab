@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1458070336557742729}
   m_Layer: 0
   m_Name: Enemy_normal
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +310,7 @@ Transform:
   m_Children:
   - {fileID: 4198036634865295138}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4786761094376882733
 SpriteRenderer:
@@ -407,7 +407,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!50 &8491612618174094662
 Rigidbody2D:

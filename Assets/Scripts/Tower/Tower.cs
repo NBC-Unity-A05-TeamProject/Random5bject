@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,12 +11,21 @@ public class Tower : MonoBehaviour
 
     public TowerData selectedTowerData;
 
-    private float currentAtkDamage;
-    private float currentAtkSpeed;
+    public float currentAtkDamage;
+    public float currentAtkSpeed;
     private SpriteRenderer spriteRenderer;
 
     public int level = 1;
     private List<Dot> dots = new List<Dot>();
+
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
+    public float range = 5f;
+    public float fireRate = 1f;
+    private float nextFireTime = 0f;
+
+    private const string EnemyTag = "Enemy";
 
     private void Start()
     {
@@ -36,7 +46,64 @@ public class Tower : MonoBehaviour
 
         GenerateDots();
         UpdateDots();
+
+        StartCoroutine(FireEnemies());
     }
+
+    IEnumerator FireEnemies()
+    {
+        while (true)
+        {
+            if (Time.time >= nextFireTime)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);
+                Transform enemyInRange = null;
+
+                foreach (var collider in colliders)
+                {
+                    if (collider.CompareTag(EnemyTag))
+                    {
+                        enemyInRange = collider.transform;
+                        break;
+                    }
+                }
+
+                if (enemyInRange != null)
+                {
+                    FireBullet(enemyInRange);
+                    nextFireTime = Time.time + 1f / fireRate;
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+
+    void FireBullet(Transform enemy)
+    {
+        Vector2[] positions = CalculateDotPositions(level);
+
+        for (int i = 0; i < level; i++)
+        {
+            Vector3 firePointPosition = firePoint.position + (Vector3)positions[i];
+
+            GameObject bulletGO = Instantiate(bulletPrefab, firePointPosition, Quaternion.identity);
+            Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+            if (bullet != null)
+            {
+                bullet.SetTarget(enemy);
+
+                SpriteRenderer sr_bullet = bulletGO.GetComponent<SpriteRenderer>();
+                if (sr_bullet != null)
+                {
+                    sr_bullet.color = selectedTowerData.dotColor;
+                }
+            }
+        }
+    }
+
 
     void GenerateDots()
     {
@@ -107,3 +174,4 @@ public class Tower : MonoBehaviour
         return positions;
     }
 }
+ 

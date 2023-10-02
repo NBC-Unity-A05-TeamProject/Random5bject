@@ -100,9 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c00abfbb15a98241a86ff16bd684321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 35196345551050147}
-  level: 1
-  maxLevel: 6
 --- !u!114 &1964784486971710282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +121,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 774b06671d33a064ea43df3e5b3838d1, type: 2}
   dotPrefab: {fileID: 1061083248422645723, guid: 02dd279f6c12af243a6d5e77cd642da5, type: 3}
   selectedTowerData: {fileID: 0}
+  currentAtkDamage: 0
+  currentAtkSpeed: 0
   level: 1
+  bulletPrefab: {fileID: 7708910076197593488, guid: 68b3d5d1416c62644a92b1242c1efeb6, type: 3}
+  firePoint: {fileID: 8008427554482076674}
+  range: 5
+  fireRate: 1
+  targetEnemy: {fileID: 2921586965180271673, guid: d5be339b9c07a874a818cd483d70d941, type: 3}
 --- !u!50 &3762730713490080226
 Rigidbody2D:
   serializedVersion: 4
