@@ -1,66 +1,81 @@
-using System.Security.Cryptography;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Draggable : MonoBehaviour
 {
+    private Vector3 offset;
+    private bool isDragging;
     private Vector3 originalPosition;
-    private Tower tower;
-    public GameObject towerPrefab; // Tower 게임 오브젝트의 프리팹
+
+    private Tower mergeTarget = null;
 
     void Start()
     {
-        tower = GetComponent<Tower>();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        Debug.Log("클릭");
         originalPosition = transform.position;
+        StartCoroutine(MoveTower());
     }
 
-    public void OnDrag(PointerEventData eventData)
+    IEnumerator MoveTower()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(eventData.position);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0f); // Z 축 값을 0으로 설정
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Tower otherTower = CanMergeWithOtherTower();
-
-        if (otherTower != null)
-            MergeWithOthertower(otherTower);
-        else
-            transform.position = originalPosition; // 원래 위치로 돌아갑니다.
-    }
-
-    Tower CanMergeWithOtherTower()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
-
-        foreach (var collider in colliders)
+        while (true)
         {
-            Tower otherTower = collider.GetComponent<Tower>();
+            if (isDragging)
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, transform.position.z);
+            }
 
-            if (otherTower != null && otherTower.towerData == tower.towerData && otherTower.level == tower.level)
-                return otherTower; // 합칠 수 있는 동일한 속성 및 레벨의 타워가 있다면 해당 타워를 반환합니다.
+            yield return null;
         }
-
-        return null; // 합칠 수 있는 동일한 속성 및 레벨의 타워가 없다면 null을 반환합니다.
     }
 
-    void MergeWithOthertower(Tower othertower)
+
+    void OnMouseDown()
     {
-        GameObject newtowerObject = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-        Tower newtowerSpawner = newtowerObject.GetComponent<Tower>();
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        offset = transform.position - new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        isDragging = true;
+        GetComponent<Collider2D>().isTrigger = true;
+    }
 
-        if (newtowerSpawner != null)
+    void OnMouseUp()
+    {
+        isDragging = false;
+        GetComponent<Collider2D>().isTrigger = false;
+
+        if (mergeTarget != null)
         {
-            Destroy(othertower.gameObject);   // 기존위치에 있던 병합될 대상탑 삭제 
-            Destroy(gameObject);  // 드래그 중인 스폰포인트의 기존탑 삭제 
+            MergeTowers();
+            mergeTarget = null;
+        }
+        else
+        {
+            transform.position = originalPosition;
+        }
+    }
 
-            newtowerSpawner.level = tower.level + 1;   // 병합된 결과물은 원래 레벨보다 한단계 상승 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Tower otherTower = collision.gameObject.GetComponent<Tower>();
+
+        if (otherTower != null && CanMergeWith(otherTower))
+            mergeTarget = otherTower;
+    }
+
+    private bool CanMergeWith(Tower other)
+    {
+        Tower thisTower = GetComponent<Tower>();
+
+        return thisTower.selectedTowerData.towerName == other.selectedTowerData.towerName && thisTower.level == other.level;
+    }
+
+    private void MergeTowers()
+    {
+        if (mergeTarget != null)
+        {
+            TowerManager.instance.MergeTowers(GetComponent<Tower>(), mergeTarget);
+            mergeTarget = null;
         }
     }
 }
