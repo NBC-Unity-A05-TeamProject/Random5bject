@@ -4,7 +4,10 @@ public class CreateTowerBtn : MonoBehaviour
 {
     public void OnCreateTowerButtonClick()
     {
-        
-        TowerSpawnManager.instance.SpawnRandomTower();
+        bool goldSpent = PlayerManager.Instance.SpendGold(100);
+        if (goldSpent)
+        {
+            TowerSpawnManager.instance.SpawnRandomTower();
+        }
     }
 }
