@@ -9,7 +9,6 @@ public class TowerSpawnManager : MonoBehaviour
     private List<Transform> spawnPoints = new List<Transform>();
     public float startX = 0f; 
     public float startY = 0f; 
-
     void Start()
     {
         //GenerateSpawnPoints(5, 3); 
