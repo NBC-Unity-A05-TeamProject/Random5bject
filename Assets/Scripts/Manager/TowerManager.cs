@@ -37,15 +37,10 @@ public class TowerManager : MonoBehaviour
             {
                 newTower.selectedTowerData = tower1.selectedTowerData;
 
-                Debug.Log("Before Upgrade - TowerManager 1: " + tower1.level);
-                Debug.Log("Before Upgrade - TowerManager 2: " + tower2.level);
-
                 int upgradesNeeded = Math.Max(tower1.level, tower2.level);
 
                 for (int i = 0; i < upgradesNeeded && i < 6; i++)
                     newTower.UpgradeTower();
-
-                Debug.Log("After Upgrade - TowerManager New : " + newTower.level);
             }
         }
     }

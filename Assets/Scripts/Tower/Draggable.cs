@@ -29,7 +29,6 @@ public class Draggable : MonoBehaviour
         }
     }
 
-
     void OnMouseDown()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -53,7 +52,6 @@ public class Draggable : MonoBehaviour
             transform.position = originalPosition;
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

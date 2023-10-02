@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CreateTowerBtn : MonoBehaviour
 {
-
     public void OnCreateTowerButtonClick()
     {
         
