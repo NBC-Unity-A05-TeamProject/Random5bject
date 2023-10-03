@@ -40,3 +40,7 @@ https://teamsparta.notion.site/5-ce9ebdee79f745cd944f4e8476316ab8
 ### Audio - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/5.-Audio" >상세보기 - WIKI 이동</a>
 
 ### Level - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/6.-Level" >상세보기 - WIKI 이동</a>
+
+### Bullet - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/7.-Bullet" >상세보기 - WIKI 이동</a>
+
+### Player - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/8.-Player" >상세보기 - WIKI 이동</a>
