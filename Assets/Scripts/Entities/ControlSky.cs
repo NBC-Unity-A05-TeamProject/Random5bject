@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class ControlSky : MonoBehaviour
@@ -16,7 +14,6 @@ public class ControlSky : MonoBehaviour
     private bool isChangingExposure = false;
     private bool isScriptActive = true;
     private Material skyboxMaterial;
-
 
     void Start()
     {

@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
     [SerializeField]
     private EnemyData[] enemyData;
-    private EnemyData selectedEnemyData;
 
     public float moveSpeed = 5f;
     private Vector3 moveDirection = Vector3.zero;

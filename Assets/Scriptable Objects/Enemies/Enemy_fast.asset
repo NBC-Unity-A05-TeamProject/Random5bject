@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy_fast
   m_EditorClassIdentifier: 
   enemyName: Enemy
-  enemyMaxHp: 300
-  enemySpeed: 2
+  enemyMaxHp: 250
+  enemySpeed: 1.5
   sprite: {fileID: 2631046323181635569, guid: c902e08bd83e04947b6e8d7f31f385be, type: 3}

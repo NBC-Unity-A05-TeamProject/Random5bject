@@ -33,6 +33,7 @@ public class MoveDice : MonoBehaviour
 
         rb.AddForce(randomDirection * randomForce, ForceMode2D.Impulse);
     }
+
     public void TransitionToNextAnimation()
     {
         animator.SetBool("isSpawn", true);

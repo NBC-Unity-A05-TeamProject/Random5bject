@@ -16,11 +16,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
-
     private void HandleGameOver()
     {
         if(UIManager.instance != null && AudioManager.instance != null && PlayerManager.Instance != null)
