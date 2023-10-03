@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage((int)tower.CurrentAtkDamage);
-                AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Bullet);
                 Destroy(gameObject);
             }
             Destroy(gameObject);

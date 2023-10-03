@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             this.gameObject.SetActive(false);
-            AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
         }
     }
 }

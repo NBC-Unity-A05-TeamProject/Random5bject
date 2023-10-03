@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18416694, g: 0.34100458, b: 0.6222701, a: 1}
+  m_IndirectSpecularColor: {r: 0.23710807, g: 0.43923244, b: 0.80176383, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2237,6 +2237,7 @@ GameObject:
   - component: {fileID: 795366920}
   - component: {fileID: 795366919}
   - component: {fileID: 795366918}
+  - component: {fileID: 795366921}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -2308,10 +2309,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706646631}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 795366921}
+        m_TargetAssemblyTypeName: CloseBtn, Assembly-CSharp
+        m_MethodName: OnClickedCloseBtn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2358,6 +2359,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795366916}
   m_CullTransparentMesh: 1
+--- !u!114 &795366921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795366916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1aaf2bead7963b4d8ea90a902f10258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionUI: {fileID: 1706646631}
 --- !u!1 &867360524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,6 +2532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1175266301}
   - component: {fileID: 1175266302}
+  - component: {fileID: 1175266303}
   m_Layer: 5
   m_Name: Volume
   m_TagString: Untagged
@@ -2595,10 +2610,35 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1175266303}
+        m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
+        m_MethodName: ChangeVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1175266303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175266300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ca999bde114fe4296b624e95dc9c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 1175266302}
 --- !u!1 &1372794031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2612,6 +2652,7 @@ GameObject:
   - component: {fileID: 1372794034}
   - component: {fileID: 1372794033}
   - component: {fileID: 1372794036}
+  - component: {fileID: 1372794037}
   m_Layer: 5
   m_Name: OptionBtn
   m_TagString: Untagged
@@ -2684,10 +2725,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706646631}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1372794037}
+        m_TargetAssemblyTypeName: OptionBtn, Assembly-CSharp
+        m_MethodName: OnClickedOptionBtn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2755,6 +2796,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1372794037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372794031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ded92f48c54944a3557e33703b061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionUI: {fileID: 1706646631}
 --- !u!1 &1399846824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,8 +2842,8 @@ RectTransform:
   m_Father: {fileID: 1080363902}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.02, y: 0}
+  m_AnchorMax: {x: 0.02, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3275,7 +3329,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.02, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3346,11 +3400,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac41de2f690e29479f3518c8c01bb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 0}
-  bgmVolume: 0.2
-  sfxClips: []
-  sfxVolume: 0.5
-  channels: 6
+  bgmClip: {fileID: 8300000, guid: abf97003f5e32114aac53244ddf93290, type: 3}
+  bgmVolume: 0.1
+  sfxClips:
+  - {fileID: 8300000, guid: 7f0adec5e61a3204dbb9544f24989d53, type: 3}
+  - {fileID: 8300000, guid: 6edcd494e398de647b00c2445799a01c, type: 3}
+  - {fileID: 8300000, guid: d8ab27d24a534094cb60688cbe17831a, type: 3}
+  - {fileID: 8300000, guid: 7e037388e312a4c4d932e39fc5e929ea, type: 3}
+  - {fileID: 8300000, guid: 49858e53d910156499606e82098bde6a, type: 3}
+  - {fileID: 8300000, guid: f04a20dcf2586a84796acac0d6bfee26, type: 3}
+  - {fileID: 8300000, guid: 0028f9afae429b745a564a5e0af9d2e7, type: 3}
+  - {fileID: 8300000, guid: 2fe582e784c50064f9063aea5f01d994, type: 3}
+  - {fileID: 8300000, guid: 9fa67e6c6d3bee546ad28fb65956625c, type: 3}
+  sfxVolume: 0.3
+  channels: 30
 --- !u!4 &1867132012
 Transform:
   m_ObjectHideFlags: 0
