@@ -36,6 +36,7 @@ public class UpgradeAtk : MonoBehaviour
             selectedTower.UpgradeAtkSpeed();
             UpgradeUI();
         }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
     private void UpgradeUI()

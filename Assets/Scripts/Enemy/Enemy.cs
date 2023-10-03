@@ -109,6 +109,7 @@ public class Enemy : MonoBehaviour
         {
             wayPointNum = 0;
             this.gameObject.SetActive(false);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }
 
@@ -120,6 +121,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             this.gameObject.SetActive(false);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }
 }

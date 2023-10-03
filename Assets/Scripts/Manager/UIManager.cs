@@ -8,9 +8,11 @@ public class UIManager : MonoBehaviour
     public void MainSceneButton()
     {
         SceneManager.LoadScene("MainScene");
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
     public void StartSceneButton()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
         SceneManager.LoadScene("StartScene");
         Resumed();
     }
@@ -18,10 +20,12 @@ public class UIManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
     public void Resumed()
     {
         Time.timeScale = 1f;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 
     public void SpeedUpGame()
@@ -35,5 +39,6 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
     }
 }

@@ -29,6 +29,8 @@ public class TowerManager : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, TowerSpawnManager.instance.towerPrefabs.Length);
         GameObject newTowerObject = Instantiate(TowerSpawnManager.instance.towerPrefabs[randomIndex], newTowerPosition, Quaternion.identity, parentTransform);
 
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.TowerMerge);
+
         Tower newTower = newTowerObject.GetComponent<Tower>();
 
         if (newTower != null)
