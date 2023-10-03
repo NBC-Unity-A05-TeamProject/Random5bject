@@ -27,6 +27,8 @@ https://teamsparta.notion.site/5-ce9ebdee79f745cd944f4e8476316ab8
 
 ### 📜 Assets References
 - https://coloralpha.itch.io/50-menu-interface-sfx
+- https://assetstore.unity.com/packages/2d/cartoon-anime-stylized-hdri-skybox-pack-236245#description
+- https://assetstore.unity.com/packages/2d/gui/icons/2d-simple-ui-pack-218050
 
 ## 📌 Main Functions
 ### GameManager - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/1.-GameManager" >상세보기 - WIKI 이동</a>
