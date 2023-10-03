@@ -34,23 +34,25 @@ public class Draggable : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
         isDragging = true;
+
         GetComponent<Collider2D>().isTrigger = true;
+
+        transform.SetAsLastSibling();
     }
 
     void OnMouseUp()
     {
         isDragging = false;
+
         GetComponent<Collider2D>().isTrigger = false;
 
         if (mergeTarget != null)
         {
             MergeTowers();
-            mergeTarget = null;
+            return; 
         }
-        else
-        {
-            transform.position = originalPosition;
-        }
+
+        transform.position = originalPosition;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,7 +67,8 @@ public class Draggable : MonoBehaviour
     {
         Tower thisTower = GetComponent<Tower>();
 
-        return thisTower.selectedTowerData.towerName == other.selectedTowerData.towerName && thisTower.level == other.level;
+        return thisTower.towerData.name == other.towerData.name && thisTower.level == other.level;
+
     }
 
     private void MergeTowers()

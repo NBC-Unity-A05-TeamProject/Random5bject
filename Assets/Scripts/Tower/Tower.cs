@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Tower : MonoBehaviour
 {
-    public TowerData[] towerData;
+    public TowerData towerData;
     public GameObject dotPrefab;
 
-    public TowerData selectedTowerData;
+    private float currentAtkDamage;
+    private float currentAtkSpeed;
+    public float CurrentAtkDamage
+    {
+        get { return currentAtkDamage; }
+        set { currentAtkDamage = value; } 
+    }
 
-    public float currentAtkDamage;
-    public float currentAtkSpeed;
+    public float CurrentAtkSpeed
+    {
+        get { return currentAtkSpeed; }
+        set { currentAtkSpeed = value; }
+    }
+
     private SpriteRenderer spriteRenderer;
 
     public int level = 1;
@@ -22,27 +30,23 @@ public class Tower : MonoBehaviour
     public Transform firePoint;
 
     public float range = 5f;
-    public float fireRate = 1f;
     private float nextFireTime = 0f;
 
     private const string EnemyTag = "Enemy";
 
+
     private void Start()
     {
-        int randomTowerIndex = Random.Range(0, towerData.Length);
-        selectedTowerData = towerData[randomTowerIndex];
-
-        string towerName = selectedTowerData.towerName;
+        string towerName = towerData.towerName;
         gameObject.name = towerName;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null && selectedTowerData.sprite != null)
+        if (spriteRenderer != null && towerData.sprite != null)
         {
-            spriteRenderer.sprite = selectedTowerData.sprite;
+            spriteRenderer.sprite = towerData.sprite;
         }
 
-        currentAtkDamage = selectedTowerData.towerAtkDamage;
-        currentAtkSpeed = selectedTowerData.towerAtkSpeed;
+        ResetStat();
 
         GenerateDots();
         UpdateDots();
@@ -56,29 +60,28 @@ public class Tower : MonoBehaviour
         {
             if (Time.time >= nextFireTime)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);
+                Collider2D[] colliders =
+                    Physics2D.OverlapCircleAll(transform.position, range);
                 Transform enemyInRange = null;
 
                 foreach (var collider in colliders)
                 {
                     if (collider.CompareTag(EnemyTag))
                     {
-                        enemyInRange = collider.transform;
-                        break;
+                        enemyInRange = collider.transform; break;
                     }
                 }
 
                 if (enemyInRange != null)
                 {
                     FireBullet(enemyInRange);
-                    nextFireTime = Time.time + 1f / fireRate;
+                    nextFireTime = Time.time + 1f / currentAtkSpeed;
                 }
             }
 
             yield return null;
         }
     }
-
 
     void FireBullet(Transform enemy)
     {
@@ -88,17 +91,21 @@ public class Tower : MonoBehaviour
         {
             Vector3 firePointPosition = firePoint.position + (Vector3)positions[i];
 
-            GameObject bulletGO = Instantiate(bulletPrefab, firePointPosition, Quaternion.identity);
+            GameObject bulletGO =
+                Instantiate(bulletPrefab, firePointPosition, Quaternion.identity);
             Bullet bullet = bulletGO.GetComponent<Bullet>();
 
             if (bullet != null)
             {
                 bullet.SetTarget(enemy);
 
-                SpriteRenderer sr_bullet = bulletGO.GetComponent<SpriteRenderer>();
+                bullet.tower = this;
+                bullet.damage = CurrentAtkDamage;
+                SpriteRenderer sr_bullet =
+                    bulletGO.GetComponent<SpriteRenderer>();
                 if (sr_bullet != null)
                 {
-                    sr_bullet.color = selectedTowerData.dotColor;
+                    sr_bullet.color = towerData.dotColor;
                 }
             }
         }
@@ -111,13 +118,14 @@ public class Tower : MonoBehaviour
 
         for (int i = 0; i < positions.Length; i++)
         {
-            GameObject dotObject = Instantiate(dotPrefab);
-            dotObject.transform.SetParent(transform); 
+            GameObject dotObject =
+               Instantiate(dotPrefab);
+            dotObject.transform.SetParent(transform);
 
             Dot dot = dotObject.GetComponent<Dot>();
             if (dot != null)
             {
-                dot.SetColor(selectedTowerData.dotColor);
+                dot.SetColor(towerData.dotColor);
                 dot.SetLocalPosition(positions[i]);
                 dots.Add(dot);
             }
@@ -137,10 +145,18 @@ public class Tower : MonoBehaviour
         if(level < 6)
         {
             level++;
-            currentAtkDamage += selectedTowerData.upgradeAtkDamage;
-            currentAtkSpeed += selectedTowerData.upgradeAtkSpeed;
             UpdateDots();
         }
+    }
+
+    public void UpgradeAtkDamage()
+    {
+        currentAtkDamage += level * 2f;
+    }
+
+    public void UpgradeAtkSpeed()
+    {
+        currentAtkSpeed += level * 2f;
     }
 
     private Vector2[] CalculateDotPositions(int towerLevel)
@@ -172,6 +188,12 @@ public class Tower : MonoBehaviour
         }
 
         return positions;
+    }
+
+    public void ResetStat()
+    {
+        currentAtkDamage = towerData.towerAtkDamage;
+        currentAtkSpeed = towerData.towerAtkSpeed;
     }
 }
  

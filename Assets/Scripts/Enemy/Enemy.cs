@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -110,6 +108,17 @@ public class Enemy : MonoBehaviour
         if(hp < 0 || collision.gameObject.CompareTag("end"))
         {
             wayPointNum = 0;
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        enemyHpText.text = hp.ToString();
+
+        if (hp <= 0)
+        {
             this.gameObject.SetActive(false);
         }
     }
