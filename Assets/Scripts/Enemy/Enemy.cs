@@ -118,6 +118,7 @@ public class Enemy : MonoBehaviour
         {
             this.gameObject.SetActive(false);
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
+            PlayerManager.Instance.score += 100;
         }
     }
 

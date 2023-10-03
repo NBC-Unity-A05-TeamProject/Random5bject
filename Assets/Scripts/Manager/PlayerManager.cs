@@ -1,18 +1,22 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
     public int gold = 0;
     public int score;
+    public int highScore;
     public int life = 10;
+    private float maxLife = 10;
     public bool isHit = false;
 
     public event Action OnGameOver;
 
     [SerializeField] private TextMeshProUGUI goldTxt;
+    [SerializeField] private Slider hpBar;
 
     private void Awake()
     {
@@ -21,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("IncreaseGold", 1f, 1f);
+        highScore= PlayerPrefs.GetInt("HighScore", 0);
     }
     private void Update()
     {
@@ -51,7 +56,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("골드가 부족합니다.");
+            UIManager.instance.ShowGoldMessage();
             return false;
         }
     }
@@ -61,7 +66,20 @@ public class PlayerManager : MonoBehaviour
         life -= Lifeamount;
         if (life <= 0)
         {
+            SetHighScore();
             OnGameOver?.Invoke();
+        }
+        hpBar.value = life / maxLife;
+    }
+    public void SetHighScore()
+    {
+        if (score > highScore)
+        {
+            highScore = score;
+
+            PlayerPrefs.SetInt("HighScore", highScore);
+
+            PlayerPrefs.Save();
         }
     }
 }
