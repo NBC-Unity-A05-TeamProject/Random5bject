@@ -5,7 +5,8 @@ https://teamsparta.notion.site/5-ce9ebdee79f745cd944f4e8476316ab8
 
 
 ## 🖥️ Project Introduction
-111% Random Dice : Defense / JUSDICE Like Game
+스파르타코딩클럽 내일배움캠프 - 게임 기초 프로젝트
+[111%] Random Dice : Defense / JUSDICE Like Game
 
 <br>
 
