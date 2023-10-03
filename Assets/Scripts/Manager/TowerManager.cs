@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
     public static TowerManager instance;
-    public Tower selectedTower;
+    public List<Tower> spawnedTowers = new List<Tower>();
+    public Dictionary<string, int> levelTowers = new Dictionary<string, int>();
 
     public Transform towerSpawnPosition;
 
@@ -23,6 +25,8 @@ public class TowerManager : MonoBehaviour
 
         Destroy(tower1.gameObject);
         Destroy(tower2.gameObject);
+        RemoveSpawnedTower(tower1);
+        RemoveSpawnedTower(tower2);
 
         int randomIndex = UnityEngine.Random.Range(0, TowerSpawnManager.instance.towerPrefabs.Length);
         GameObject newTowerObject = Instantiate(TowerSpawnManager.instance.towerPrefabs[randomIndex], newTowerPosition, Quaternion.identity, parentTransform);
@@ -35,6 +39,7 @@ public class TowerManager : MonoBehaviour
         {
             TowerData selectedTowerData = newTowerObject.GetComponent<Tower>().towerData;
             newTower.towerData = selectedTowerData;
+            AddSpawnedTower(newTower);
 
             int upgradesNeeded = Math.Max(tower1.level, tower2.level);
 
@@ -43,8 +48,41 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    public void SelectTower(Tower tower)
+    // 타워가 소환될 때 호출될 함수
+    public void AddSpawnedTower(Tower tower)
     {
-        selectedTower = tower;
+        spawnedTowers.Add(tower);
+        UpgradeTowerAtk();
+    }
+
+    // 타워가 파괴될 때 호출될 함수
+    public void RemoveSpawnedTower(Tower tower)
+    {
+        spawnedTowers.Remove(tower);
+    }
+
+    // 현재 소환된 타워 리스트를 반환하는 함수
+    public List<Tower> GetSpawnedTowers()
+    {
+        return spawnedTowers;
+    }
+
+    public void AddLevelTower(Tower tower, int level)
+    {
+        if (!string.IsNullOrEmpty(tower.towerData.towerName))
+        {
+            levelTowers[tower.towerData.towerName] = level;
+        }
+    }
+
+    public void UpgradeTowerAtk()
+    {
+        foreach(var tower in spawnedTowers)
+        {
+            string towerName = tower.towerData.towerName;
+            int towerLevel = levelTowers.ContainsKey(towerName) ? levelTowers[towerName] : 0;
+            tower.UpgradeAtkDamage(towerLevel);
+            tower.UpgradeAtkSpeed(towerLevel);
+        }
     }
 }

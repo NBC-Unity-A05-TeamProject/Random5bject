@@ -7,19 +7,8 @@ public class Tower : MonoBehaviour
     public TowerData towerData;
     public GameObject dotPrefab;
 
-    private float currentAtkDamage;
-    private float currentAtkSpeed;
-    public float CurrentAtkDamage
-    {
-        get { return currentAtkDamage; }
-        set { currentAtkDamage = value; } 
-    }
-
-    public float CurrentAtkSpeed
-    {
-        get { return currentAtkSpeed; }
-        set { currentAtkSpeed = value; }
-    }
+    public float currentAtkDamage;
+    public float currentAtkSpeed;
 
     private SpriteRenderer spriteRenderer;
 
@@ -45,8 +34,6 @@ public class Tower : MonoBehaviour
         {
             spriteRenderer.sprite = towerData.sprite;
         }
-
-        ResetStat();
 
         GenerateDots();
         UpdateDots();
@@ -100,7 +87,7 @@ public class Tower : MonoBehaviour
                 bullet.SetTarget(enemy);
 
                 bullet.tower = this;
-                bullet.damage = CurrentAtkDamage;
+                bullet.damage = currentAtkDamage;
                 SpriteRenderer sr_bullet =
                     bulletGO.GetComponent<SpriteRenderer>();
                 if (sr_bullet != null)
@@ -149,14 +136,14 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void UpgradeAtkDamage()
+    public void UpgradeAtkDamage(int level)
     {
-        currentAtkDamage += level * 2f;
+        currentAtkDamage = towerData.towerAtkDamage + level * 2f;
     }
 
-    public void UpgradeAtkSpeed()
+    public void UpgradeAtkSpeed(int level)
     {
-        currentAtkSpeed += level * 2f;
+        currentAtkSpeed = towerData.towerAtkSpeed + level * 2f;
     }
 
     private Vector2[] CalculateDotPositions(int towerLevel)
@@ -188,12 +175,6 @@ public class Tower : MonoBehaviour
         }
 
         return positions;
-    }
-
-    public void ResetStat()
-    {
-        currentAtkDamage = towerData.towerAtkDamage;
-        currentAtkSpeed = towerData.towerAtkSpeed;
     }
 }
  
