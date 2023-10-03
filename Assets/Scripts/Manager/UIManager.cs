@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEditor.VersionControl;
@@ -11,7 +12,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI NotEnoughGoldTxt;
     public TextMeshProUGUI highScoreTxt;
     public TextMeshProUGUI scoreTxt;
-    private Coroutine goldMessageCoroutine;
+    private Coroutine goldMessageCoroutine; 
+    private bool isSpeedUp = false;
     void Awake()
     {
         if (instance == null)
@@ -19,8 +21,20 @@ public class UIManager : MonoBehaviour
             instance = this;
         }
     }
-    
-    private bool isSpeedUp = false;
+
+    private void Start()
+    {
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.OnGameOver += setScoreTxt;
+        }
+    }
+
+    private void setScoreTxt()
+    {
+        highScoreTxt.text = PlayerManager.Instance.highScore.ToString();
+        scoreTxt.text = PlayerManager.Instance.score.ToString();
+    }
 
     public void MainSceneButton()
     {
@@ -66,8 +80,6 @@ public class UIManager : MonoBehaviour
 
     public void SetGameObjectActive(GameObject gameObject, bool active)
     {
-        highScoreTxt.text = PlayerManager.Instance.highScore.ToString();
-        scoreTxt.text = PlayerManager.Instance.score.ToString();
         gameObject.SetActive(active);
     }
     public void ShowGoldMessage()
