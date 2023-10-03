@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,10 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
     public int gold = 0;
     public int score;
+    public int life = 10;
+    public bool isHit = false;
+
+    public event Action OnGameOver;
 
     [SerializeField] private TextMeshProUGUI goldTxt;
 
@@ -48,6 +53,15 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("골드가 부족합니다.");
             return false;
+        }
+    }
+
+    public void DecreaseLife(int Lifeamount)
+    {
+        life -= Lifeamount;
+        if (life <= 0)
+        {
+            OnGameOver?.Invoke();
         }
     }
 }

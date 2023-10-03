@@ -17,8 +17,10 @@ public class UIManager : MonoBehaviour
 
     public void MainSceneButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
+        AudioManager.instance.PlayBgm(true);
     }
     public void StartSceneButton()
     {

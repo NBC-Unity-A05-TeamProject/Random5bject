@@ -105,9 +105,17 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hp -= damage;
-        if(hp < 0 || collision.gameObject.CompareTag("end"))
+
+        if (collision.gameObject.CompareTag("end"))
         {
+            PlayerManager.Instance.DecreaseLife(1);
             wayPointNum = 0;
+            this.gameObject.SetActive(false);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
+        }
+
+        if (hp <= 0)
+        {
             this.gameObject.SetActive(false);
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
