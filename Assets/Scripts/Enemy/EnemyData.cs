@@ -8,9 +8,4 @@ public class EnemyData : ScriptableObject
     public int enemyMaxHp = 400;
     public float enemySpeed = 1f;
     public Sprite sprite;
-
-    public void IncreaseMaxHp(int amount)
-    {
-        enemyMaxHp += amount;
-    }
 }

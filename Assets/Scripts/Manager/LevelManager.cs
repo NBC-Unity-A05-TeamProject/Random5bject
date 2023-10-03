@@ -41,14 +41,6 @@ public class LevelManager : MonoBehaviour
         {
             stageTxt.text = "Stage " + currentStage.ToString();
 
-            if (enemySpawner != null && currentStage > 1)
-            {
-                EnemyData[] enemyDatas = enemySpawner.enemyData;
-                foreach (EnemyData enemyData in enemyDatas)
-                {
-                    enemyData.IncreaseMaxHp(50);
-                }
-            }
         }
     }
 }

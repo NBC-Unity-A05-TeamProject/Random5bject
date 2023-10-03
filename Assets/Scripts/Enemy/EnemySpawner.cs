@@ -6,7 +6,7 @@ using static ObjectPoolingManager;
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPoolingManager manager;
-    public EnemyData[] enemyData;
+    private EnemyData[] enemyData;
     private EnemyData selectedEnemyData;
     [SerializeField]
     public Transform[] wayPos;
