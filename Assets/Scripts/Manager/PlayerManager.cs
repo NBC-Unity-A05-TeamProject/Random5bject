@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating("IncreaseGold", 1f, 1f);
+        InvokeRepeating("IncreaseGold", 1f, 3f);
         highScore= PlayerPrefs.GetInt("HighScore", 0);
     }
     private void Update()
@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
 
     private void IncreaseGold()
     {
-        gold += 50;
+        gold += 100;
     }
 
     public bool SpendGold(int amount)

@@ -48,20 +48,17 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    // 타워가 소환될 때 호출될 함수
     public void AddSpawnedTower(Tower tower)
     {
         spawnedTowers.Add(tower);
         UpgradeTowerAtk();
     }
 
-    // 타워가 파괴될 때 호출될 함수
     public void RemoveSpawnedTower(Tower tower)
     {
         spawnedTowers.Remove(tower);
     }
 
-    // 현재 소환된 타워 리스트를 반환하는 함수
     public List<Tower> GetSpawnedTowers()
     {
         return spawnedTowers;

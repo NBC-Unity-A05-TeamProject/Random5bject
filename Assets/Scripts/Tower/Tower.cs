@@ -143,7 +143,7 @@ public class Tower : MonoBehaviour
 
     public void UpgradeAtkSpeed(int level)
     {
-        currentAtkSpeed = towerData.towerAtkSpeed + level * 2f;
+        currentAtkSpeed = towerData.towerAtkSpeed + (level * 0.2f);
     }
 
     private Vector2[] CalculateDotPositions(int towerLevel)

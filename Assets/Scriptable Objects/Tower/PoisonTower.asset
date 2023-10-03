@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: PoisonTower
   m_EditorClassIdentifier: 
   towerName: PoisonTower
-  towerAtkDamage: 3
+  towerAtkDamage: 20
   towerAtkSpeed: 1
-  upgradeAtkDamage: 0.5
-  upgradeAtkSpeed: 2
-  towerLevel: 6
   sprite: {fileID: 21300000, guid: b9c274ddc46ab9648aa6e1c93de0ff08, type: 3}
   dotColor: {r: 0.509434, g: 0.15619439, b: 0.45710206, a: 1}
