@@ -36,7 +36,7 @@ public class TowerSpawnManager : MonoBehaviour
         GameObject newTowerObject = Instantiate(randomTowerPrefab, randomEmptySpawnPoint.position, Quaternion.identity, randomEmptySpawnPoint);
 
         Tower newTower = newTowerObject.GetComponent<Tower>();
-
+        TowerManager.instance.AddSpawnedTower(newTower);
         if (newTower != null)
             newTower.level = 1;
     }

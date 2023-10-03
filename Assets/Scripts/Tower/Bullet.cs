@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage((int)tower.CurrentAtkDamage);
+                enemy.TakeDamage((int)tower.currentAtkDamage);
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.Bullet);
                 Destroy(gameObject);
             }

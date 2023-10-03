@@ -32,8 +32,8 @@ public class UpgradeAtk : MonoBehaviour
             level++;
             price *= level;
 
-            selectedTower.UpgradeAtkDamage();
-            selectedTower.UpgradeAtkSpeed();
+            TowerManager.instance.AddLevelTower(selectedTower, level);
+            TowerManager.instance.UpgradeTowerAtk();
             UpgradeUI();
         }
         AudioManager.instance.PlaySfx(AudioManager.Sfx.ButtonClick);
