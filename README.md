@@ -6,7 +6,7 @@ https://teamsparta.notion.site/5-ce9ebdee79f745cd944f4e8476316ab8
 
 ## 🖥️ Project Introduction
 스파르타코딩클럽 내일배움캠프 - 게임 기초 프로젝트
-[111%] Random Dice : Defense / JUSDICE Like Game
+<br>[111%] Random Dice : Defense / JUSDICE Like Game</br>
 
 <br>
 
@@ -29,14 +29,14 @@ https://teamsparta.notion.site/5-ce9ebdee79f745cd944f4e8476316ab8
 - https://coloralpha.itch.io/50-menu-interface-sfx
 
 ## 📌 Main Functions
-### GameManager - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/1-%E2%80%90-GameManger" >상세보기 - WIKI 이동</a>
+### GameManager - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/1.-GameManager" >상세보기 - WIKI 이동</a>
 
-### Tower - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/2-%E2%80%90-PlayerManager" >상세보기 - WIKI 이동</a>
+### Tower - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/2.-Tower" >상세보기 - WIKI 이동</a>
 
-### Enemy - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/3-%E2%80%90-LifeManager" >상세보기 - WIKI 이동</a>
+### Enemy - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/3.-Enemy" >상세보기 - WIKI 이동</a>
 
-### UI - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/4-%E2%80%90-BulletManager" >상세보기 - WIKI 이동</a>
+### UI - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/4.-UI" >상세보기 - WIKI 이동</a>
 
-### Audio - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/5-%E2%80%90-EnemyManager" >상세보기 - WIKI 이동</a>
+### Audio - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/5.-Audio" >상세보기 - WIKI 이동</a>
 
-### Level - <a href="https://github.com/NBCampUnityA05/SaveTheUndead/wiki/6-%E2%80%90-UI-Manager" >상세보기 - WIKI 이동</a>
+### Level - <a href="https://github.com/NBC-Unity-A05-TeamProject/Random5bject/wiki/6.-Level" >상세보기 - WIKI 이동</a>
