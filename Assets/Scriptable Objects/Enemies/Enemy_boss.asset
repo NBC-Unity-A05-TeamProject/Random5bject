@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1f024633f580e4881b9cdfc87e68d1, type: 3}
   m_Name: Enemy_boss
   m_EditorClassIdentifier: 
-  towerName: Square_boss
+  enemyName: Enemy
   enemyMaxHp: 600
   enemySpeed: 1
   sprite: {fileID: 4921545448054487618, guid: c902e08bd83e04947b6e8d7f31f385be, type: 3}

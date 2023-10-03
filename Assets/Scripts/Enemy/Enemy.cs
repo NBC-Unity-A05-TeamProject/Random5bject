@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    private LevelManager levelManager;
     ObjectPoolingManager manager = ObjectPoolingManager.instance;
     EnemySpawner enemySpawner;
     private Rigidbody2D rigidbody;
@@ -116,6 +117,11 @@ public class Enemy : MonoBehaviour
 
         if (hp <= 0)
         {
+            levelManager = FindObjectOfType<LevelManager>();
+            if (levelManager != null)
+            {
+                levelManager.EnemyKilled();
+            }
             this.gameObject.SetActive(false);
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
             PlayerManager.Instance.score += 100;
