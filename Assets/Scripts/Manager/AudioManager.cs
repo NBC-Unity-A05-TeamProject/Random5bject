@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -26,18 +23,23 @@ public class AudioManager : MonoBehaviour
         Hit,
         TowerMerge,
         TowerCreate,
-        ButtonClick,
-        Bullet
+        Bullet,
+        ButtonClick = 8
     }
     private void Awake()
     {
         Init();
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        
+    }
+
+    void Start()
+    {
+        Time.timeScale = 1f;
+        PlayBgm(true);
     }
 
     private void Init()
@@ -62,6 +64,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetVolume(float bgmVolume, float sfxVolume)
+    {
+        this.bgmVolume = bgmVolume;
+        this.sfxVolume = sfxVolume;
+
+        bgmPlayer.volume = bgmVolume;
+
+        foreach (var sfxPlayer in sfxPlayers)
+        {
+            sfxPlayer.volume = sfxVolume;
+        }
+    }
+
     public void PlayBgm(bool isPlay)
     {
         if(isPlay)
@@ -83,18 +98,18 @@ public class AudioManager : MonoBehaviour
             {
                 continue;
             }
+
+            int randIndex = 0;
+
+            if(sfx == Sfx.Bullet)
+            {
+                randIndex = Random.Range(0, 3);
+            }
+
             channelIndex = loopIndex;
-            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx + randIndex];
             sfxPlayers[loopIndex].Play();
             break;
         }
-        
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        Time.timeScale = 1.0f;
-        PlayBgm(true);
-    }
-
 }
