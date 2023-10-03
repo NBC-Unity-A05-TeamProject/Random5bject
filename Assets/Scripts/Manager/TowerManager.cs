@@ -6,6 +6,7 @@ using UnityEngine;
 public class TowerManager : MonoBehaviour
 {
     public static TowerManager instance;
+    public Tower selectedTower;
 
     public Transform towerSpawnPosition;
 
@@ -25,23 +26,25 @@ public class TowerManager : MonoBehaviour
         Destroy(tower1.gameObject);
         Destroy(tower2.gameObject);
 
-        GameObject newTowerObject = Instantiate(TowerSpawnManager.instance.towerPrefab, newTowerPosition, Quaternion.identity, parentTransform);
+        int randomIndex = UnityEngine.Random.Range(0, TowerSpawnManager.instance.towerPrefabs.Length);
+        GameObject newTowerObject = Instantiate(TowerSpawnManager.instance.towerPrefabs[randomIndex], newTowerPosition, Quaternion.identity, parentTransform);
 
         Tower newTower = newTowerObject.GetComponent<Tower>();
 
         if (newTower != null)
         {
-            int index = Array.IndexOf(newTower.towerData, tower1.selectedTowerData);
+            TowerData selectedTowerData = newTowerObject.GetComponent<Tower>().towerData;
+            newTower.towerData = selectedTowerData;
 
-            if (index >= 0)
-            {
-                newTower.selectedTowerData = tower1.selectedTowerData;
+            int upgradesNeeded = Math.Max(tower1.level, tower2.level);
 
-                int upgradesNeeded = Math.Max(tower1.level, tower2.level);
-
-                for (int i = 0; i < upgradesNeeded && i < 6; i++)
-                    newTower.UpgradeTower();
-            }
+            for (int i = 0; i < upgradesNeeded && i < 6; i++)
+                newTower.UpgradeTower();
         }
+    }
+
+    public void SelectTower(Tower tower)
+    {
+        selectedTower = tower;
     }
 }

@@ -1,31 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class UpgradeAtk : MonoBehaviour
 {
+    public Tower selectedTower;
+
     private int price;
     private int level;
     [SerializeField] private TextMeshProUGUI levelTxt;
     [SerializeField] private TextMeshProUGUI priceTxt;
     [SerializeField] private Button upgradeButton;
 
-    private void Start()
+    void Start()
     {
         price = 100;
         level = 0;
-        UpgradeUI();
     }
-    public void OnUpgradeAtkButtonClick()
+
+    public void OnUpgradeButtonClick()
     {
+        if (selectedTower == null)
+        {
+            return;
+        }
+
         bool goldSpent = PlayerManager.Instance.SpendGold(price);
+
         if (goldSpent)
         {
             level++;
             price *= level;
+
+            selectedTower.UpgradeAtkDamage();
+            selectedTower.UpgradeAtkSpeed();
             UpgradeUI();
         }
     }

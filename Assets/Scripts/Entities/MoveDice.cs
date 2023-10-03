@@ -12,8 +12,6 @@ public class MoveDice : MonoBehaviour
 
     private Animator animator;
     private bool isSpawn = false;
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

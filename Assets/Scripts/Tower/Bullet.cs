@@ -9,6 +9,10 @@ public class Bullet : MonoBehaviour
 
     private const string EnemyTag = "Enemy";
 
+    public Tower tower;
+
+    public float damage;
+
     public void SetTarget(Transform enemy)
     {
         targetEnemy = enemy;
@@ -33,9 +37,6 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
-
-
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(EnemyTag))
@@ -43,12 +44,10 @@ public class Bullet : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                //enemy.TakeDamage(3);
+                enemy.TakeDamage((int)tower.CurrentAtkDamage);
                 Destroy(gameObject);
             }
-
             Destroy(gameObject);
         }
     }
-
 }
