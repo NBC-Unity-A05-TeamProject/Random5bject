@@ -1,10 +1,17 @@
+using System.Collections;
+using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-
+    public TextMeshProUGUI NotEnoughGoldTxt;
+    public TextMeshProUGUI highScoreTxt;
+    public TextMeshProUGUI scoreTxt;
+    private Coroutine goldMessageCoroutine;
     void Awake()
     {
         if (instance == null)
@@ -12,7 +19,7 @@ public class UIManager : MonoBehaviour
             instance = this;
         }
     }
-
+    
     private bool isSpeedUp = false;
 
     public void MainSceneButton()
@@ -59,6 +66,29 @@ public class UIManager : MonoBehaviour
 
     public void SetGameObjectActive(GameObject gameObject, bool active)
     {
+        highScoreTxt.text = PlayerManager.Instance.highScore.ToString();
+        scoreTxt.text = PlayerManager.Instance.score.ToString();
         gameObject.SetActive(active);
+    }
+    public void ShowGoldMessage()
+    {
+        if (goldMessageCoroutine != null)
+        {
+            StopCoroutine(goldMessageCoroutine);
+        }
+        goldMessageCoroutine = StartCoroutine(DisplayGoldMessage());
+    }
+    private IEnumerator DisplayGoldMessage()
+    {
+        NotEnoughGoldTxt.text = "골드가 부족합니다.";
+
+        yield return new WaitForSeconds(1.0f);
+
+        NotEnoughGoldTxt.text = string.Empty;
+    }
+    public static void InitializePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 }
