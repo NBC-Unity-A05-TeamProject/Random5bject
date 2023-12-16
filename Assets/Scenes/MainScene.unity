@@ -966,7 +966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - prefab: {fileID: 5923435110972336915, guid: d5be339b9c07a874a818cd483d70d941, type: 3}
-    capacity: 100
+    capacity: 20
+  - prefab: {fileID: 7708910076197593488, guid: 68b3d5d1416c62644a92b1242c1efeb6, type: 3}
+    capacity: 30
 --- !u!4 &188278361
 Transform:
   m_ObjectHideFlags: 0

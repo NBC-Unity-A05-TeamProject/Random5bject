@@ -25,9 +25,9 @@ public class Bullet : MonoBehaviour
     {
         while (true)
         {
-            if (targetEnemy == null || targetEnemy.gameObject.activeInHierarchy == false)
+            if (targetEnemy == null || !targetEnemy.gameObject.activeInHierarchy)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 yield break;
             }
 
@@ -37,6 +37,7 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(EnemyTag))
@@ -46,9 +47,11 @@ public class Bullet : MonoBehaviour
             {
                 enemy.TakeDamage((int)tower.currentAtkDamage);
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.Bullet);
-                Destroy(gameObject);
+
+                gameObject.SetActive(false);
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
+
 }
