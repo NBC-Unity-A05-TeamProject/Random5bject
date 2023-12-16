@@ -35,11 +35,12 @@ public class ObjectPoolingManager : MonoBehaviour
         List<GameObject> pool = poolDictionary[gameObject.name];
         for (int i = 0; i < capacity; i++)
         {
-            GameObject newObject = Instantiate(gameObject);
+            GameObject newObject = Instantiate(gameObject, this.transform);
             newObject.SetActive(false);
             pool.Add(newObject);
         }
     }
+
     public GameObject GetFromPool(string name)
     {
         List<GameObject> pool;

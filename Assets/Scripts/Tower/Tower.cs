@@ -78,18 +78,27 @@ public class Tower : MonoBehaviour
         {
             Vector3 firePointPosition = firePoint.position + (Vector3)positions[i];
 
-            GameObject bulletGO =
-                Instantiate(bulletPrefab, firePointPosition, Quaternion.identity);
-            Bullet bullet = bulletGO.GetComponent<Bullet>();
+            GameObject bulletGO = ObjectPoolingManager.instance.GetFromPool(bulletPrefab.name);
 
+            if (bulletGO == null)
+            {
+                bulletGO = Instantiate(bulletPrefab, firePointPosition, Quaternion.identity);
+            }
+            else
+            {
+                bulletGO.transform.position = firePointPosition;
+                bulletGO.transform.rotation = Quaternion.identity;
+                bulletGO.SetActive(true);
+            }
+
+            Bullet bullet = bulletGO.GetComponent<Bullet>();
             if (bullet != null)
             {
                 bullet.SetTarget(enemy);
-
                 bullet.tower = this;
                 bullet.damage = currentAtkDamage;
-                SpriteRenderer sr_bullet =
-                    bulletGO.GetComponent<SpriteRenderer>();
+
+                SpriteRenderer sr_bullet = bulletGO.GetComponent<SpriteRenderer>();
                 if (sr_bullet != null)
                 {
                     sr_bullet.color = towerData.dotColor;
@@ -97,6 +106,7 @@ public class Tower : MonoBehaviour
             }
         }
     }
+
 
 
     void GenerateDots()
