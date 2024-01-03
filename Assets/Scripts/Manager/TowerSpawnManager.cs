@@ -15,6 +15,7 @@ public class TowerSpawnManager : MonoBehaviour
         instance = this;
     }
 
+    // 랜덤한 타워를 빈 스폰 포인트에 생성
     public void SpawnRandomTower()
     {
         List<Transform> emptySpawnPoints = new List<Transform>();
@@ -41,7 +42,7 @@ public class TowerSpawnManager : MonoBehaviour
             newTower.level = 1;
     }
 
-
+    // 주어진 폭과 높이에 따라 스폰 포인트를 생성
     public void GenerateSpawnPoints(int width, int height)
     {
         for (int x = 0; x < width; x++)

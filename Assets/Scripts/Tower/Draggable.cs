@@ -9,13 +9,14 @@ public class Draggable : MonoBehaviour
 
     private Tower mergeTarget = null;
 
-    void Start()
+    private void Start()
     {
         originalPosition = transform.position;
         StartCoroutine(MoveTower());
     }
 
-    IEnumerator MoveTower()
+    // 타워를 마우스로 드래그하면 호출
+    private IEnumerator MoveTower()
     {
         while (true)
         {
@@ -29,7 +30,8 @@ public class Draggable : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    // 마우스 클릭 시 호출
+    private void OnMouseDown()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
@@ -40,7 +42,8 @@ public class Draggable : MonoBehaviour
         transform.SetAsLastSibling();
     }
 
-    void OnMouseUp()
+    // 마우스 버튼을 놓았을 때 호출
+    private void OnMouseUp()
     {
         isDragging = false;
 
@@ -55,6 +58,7 @@ public class Draggable : MonoBehaviour
         transform.position = originalPosition;
     }
 
+    // 다른 타워와의 충돌 감지 시 호출
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Tower otherTower = collision.gameObject.GetComponent<Tower>();
@@ -63,6 +67,7 @@ public class Draggable : MonoBehaviour
             mergeTarget = otherTower;
     }
 
+    // 두 타워를 병합
     private bool CanMergeWith(Tower other)
     {
         Tower thisTower = GetComponent<Tower>();
@@ -71,6 +76,7 @@ public class Draggable : MonoBehaviour
 
     }
 
+    // 다른 타워와 병합 가능한지 확인
     private void MergeTowers()
     {
         if (mergeTarget != null)

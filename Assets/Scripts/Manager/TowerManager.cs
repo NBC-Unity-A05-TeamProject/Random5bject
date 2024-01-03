@@ -15,6 +15,7 @@ public class TowerManager : MonoBehaviour
         instance = this;
     }
 
+    // 두 타워를 병합
     public void MergeTowers(Tower tower1, Tower tower2)
     {
         if (tower1.transform.parent == null)
@@ -48,17 +49,19 @@ public class TowerManager : MonoBehaviour
         }
     }
 
+    // 스폰된 타워 목록에 타워를 추가
     public void AddSpawnedTower(Tower tower)
     {
         spawnedTowers.Add(tower);
         UpgradeTowerAtk();
     }
 
+    // 스폰된 타워 목록에서 타워를 제거
     public void RemoveSpawnedTower(Tower tower)
     {
         spawnedTowers.Remove(tower);
     }
-
+    
     public List<Tower> GetSpawnedTowers()
     {
         return spawnedTowers;
@@ -72,6 +75,7 @@ public class TowerManager : MonoBehaviour
         }
     }
 
+    // 스폰된 모든 타워의 공격력과 공격 속도를 업그레이드
     public void UpgradeTowerAtk()
     {
         foreach(var tower in spawnedTowers)

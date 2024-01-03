@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
 
     public float damage;
 
+    // 총알의 목표를 설정하고 총알을 목표로 이동시키는 코루틴 시작
     public void SetTarget(Transform enemy)
     {
         targetEnemy = enemy;
@@ -21,7 +22,8 @@ public class Bullet : MonoBehaviour
         StartCoroutine(MoveTowardsTarget());
     }
 
-    IEnumerator MoveTowardsTarget()
+    // 총알을 목표로 이동시키는 코루틴
+    private IEnumerator MoveTowardsTarget()
     {
         while (true)
         {
@@ -38,7 +40,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    // 총알이 적과 충돌했을 때 호출되는 메서드
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(EnemyTag))
         {

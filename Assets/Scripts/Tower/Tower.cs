@@ -4,31 +4,46 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    // 타워 기본 데이터
     public TowerData towerData;
-    public GameObject dotPrefab;
 
+    // 타워 상태 변수
     public float currentAtkDamage;
     public float currentAtkSpeed;
+    public int level = 1;
 
+    // 타워 공격 관련 프리팹과 설정
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float range = 5f;
+
+    // 타워 시각적 요소
+    [SerializeField] private GameObject dotPrefab;
+    private List<Dot> dots = new List<Dot>();
     private SpriteRenderer spriteRenderer;
 
-    public int level = 1;
-    private List<Dot> dots = new List<Dot>();
-
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-
-    public float range = 5f;
+    // 타워 적 탐지 및 공격 타이밍 관련
+    private const string EnemyTag = "Enemy";
     private float nextFireTime = 0f;
 
-    private const string EnemyTag = "Enemy";
+    // 타워 레벨별 점 위치 설정
+    private Dictionary<int, Vector2[]> dotPositions;
 
+    private void Awake()
+    {
+        InitializeDotPositions();
+    }
 
     private void Start()
     {
-        string towerName = towerData.towerName;
-        gameObject.name = towerName;
+        InitializeTower();
+        StartCoroutine(FireEnemies());
+    }
 
+    // 타워의 정보와 업데이트를 수행
+    private void InitializeTower()
+    {
+        gameObject.name = towerData.towerName;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null && towerData.sprite != null)
         {
@@ -37,28 +52,16 @@ public class Tower : MonoBehaviour
 
         GenerateDots();
         UpdateDots();
-
-        StartCoroutine(FireEnemies());
     }
 
-    IEnumerator FireEnemies()
+    // 적을 주기적으로 발견하고 총알을 발사하는 코루틴
+    private IEnumerator FireEnemies()
     {
         while (true)
         {
             if (Time.time >= nextFireTime)
             {
-                Collider2D[] colliders =
-                    Physics2D.OverlapCircleAll(transform.position, range);
-                Transform enemyInRange = null;
-
-                foreach (var collider in colliders)
-                {
-                    if (collider.CompareTag(EnemyTag))
-                    {
-                        enemyInRange = collider.transform; break;
-                    }
-                }
-
+                Transform enemyInRange = FindEnemyInRange();
                 if (enemyInRange != null)
                 {
                     FireBullet(enemyInRange);
@@ -70,7 +73,8 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void FireBullet(Transform enemy)
+    // 적을 향해 총알을 발사
+    private void FireBullet(Transform enemy)
     {
         Vector2[] positions = CalculateDotPositions(level);
 
@@ -107,9 +111,8 @@ public class Tower : MonoBehaviour
         }
     }
 
-
-
-    void GenerateDots()
+    // 타워 레벨에 따라 점들을 생성
+    private void GenerateDots()
     {
         Vector2[] positions = CalculateDotPositions(level);
 
@@ -129,7 +132,8 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void UpdateDots()
+    // 타워 레벨에 따라 점들의 활성 상태를 업데이트
+    private void UpdateDots()
     {
         for (int i = 0; i < dots.Count; i++)
         {
@@ -137,54 +141,63 @@ public class Tower : MonoBehaviour
         }
     }
 
+    // 타워 업그레이드
     public void UpgradeTower()
     {
-        if(level < 6)
+        if (level < 6)
         {
             level++;
             UpdateDots();
         }
     }
 
+    // 타워의 공격력를 업그레이드
     public void UpgradeAtkDamage(int level)
     {
         currentAtkDamage = towerData.towerAtkDamage + level * 2f;
     }
 
+    // 타워의 공격 속도를 업그레이드
     public void UpgradeAtkSpeed(int level)
     {
         currentAtkSpeed = towerData.towerAtkSpeed + (level * 0.2f);
     }
 
+    // 타워 레벨에 따라 점 위치 데이터를 초기화
+    private void InitializeDotPositions()
+    {
+        dotPositions = new Dictionary<int, Vector2[]>
+        {
+            [1] = new Vector2[] { Vector2.zero },
+            [2] = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, 0.3f) },
+            [3] = new Vector2[] { new Vector2(-0.3f, -0.3f), Vector2.zero, new Vector2(0.3f, 0.3f) },
+            [4] = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) },
+            [5] = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), Vector2.zero, new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) },
+            [6] = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(-0.3f, 0f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, -0.3f), new Vector2(0.3f, 0f), new Vector2(0.3f, 0.3f) }
+        };
+    }
+
+    // 타워 레벨에 따라 점 위치를 계산
     private Vector2[] CalculateDotPositions(int towerLevel)
     {
-        Vector2[] positions = null;
-
-        switch (towerLevel)
+        if (dotPositions.TryGetValue(towerLevel, out Vector2[] positions))
         {
-            case 1:
-                positions = new Vector2[] { Vector2.zero };
-                break;
-            case 2:
-                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, 0.3f) };
-                break;
-            case 3:
-                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), Vector2.zero, new Vector2(0.3f, 0.3f) };
-                break;
-            case 4:
-                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) };
-                break;
-            case 5:
-                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(0.3f, -0.3f), Vector2.zero, new Vector2(-0.3f, 0.3f), new Vector2(0.3f, 0.3f) };
-                break;
-            case 6:
-                positions = new Vector2[] { new Vector2(-0.3f, -0.3f), new Vector2(-0.3f, 0f), new Vector2(-0.3f, 0.3f), new Vector2(0.3f, -0.3f), new Vector2(0.3f, 0f), new Vector2(0.3f, 0.3f) };
-                break;
-            default:
-                break;
+            return positions;
         }
+        return null;
+    }
 
-        return positions;
+    // 사거리 내에 있는 적을 찾음
+    private Transform FindEnemyInRange()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);
+        foreach (var collider in colliders)
+        {
+            if (collider.CompareTag(EnemyTag))
+            {
+                return collider.transform;
+            }
+        }
+        return null;
     }
 }
- 
